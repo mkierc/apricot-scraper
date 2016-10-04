@@ -3,6 +3,17 @@ import requests
 import datetime
 requests.packages.urllib3.disable_warnings()
 
+# tandetny scraper do cen z morele.net
+#
+#
+#   ,--.*,--.
+#  /         \  /\
+# |           |/  \
+#  \         //___/'-._
+#   '.__.__,'      "._/
+#
+#   apricot-scraper by mkierc
+
 
 class Scraper:
     def main(self):
