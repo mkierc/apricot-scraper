@@ -4,6 +4,12 @@ import datetime
 import pickle
 from pprint import pprint
 
+# todo: dodac legende
+# todo: sprawdzic czy mozna dodawac pionowe kreski z oznaczeniami wydarzen
+# todo: zmiana kolorow linii poszczegolnych produktow
+# todo: automatyczne kopiowanie wykresu do public_html
+# todo: dodawanie nowego wykresu jako head-file
+
 if use_old_data:
     with open('old-datafile.raw', 'rb') as input_handle:
         input_dict = pickle.loads(input_handle.read())

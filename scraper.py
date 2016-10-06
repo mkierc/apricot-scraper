@@ -23,6 +23,9 @@ requests.packages.urllib3.disable_warnings()
 #
 #   apricot-scraper by mkierc
 
+# todo: obsluga bledow http
+# todo: wysylanie powiadomienia w przypadku bledu
+
 class Scraper:
     def main(self):
         current_date = datetime.datetime.now()
