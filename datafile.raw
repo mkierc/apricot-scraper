@@ -1,100 +1,29 @@
 (dp0
-cdatetime
-datetime
+S'2016.10.07 08:40:26'
 p1
-(S'\x07\xe0\n\x06\x15\x08$\x06\n\xe0'
-p2
-tp3
-Rp4
-(dp5
+(dp2
 S'GTX 980TI'
-p6
-F4939.8
+p3
+F5524.38
 sS'GTX 1080'
+p4
+F5984.58
+ssS'2016.10.07 08:40:27'
+p5
+(dp6
+S'GTX 1080'
 p7
-F5145.48
-ssg1
-(S'\x07\xe0\n\x06\x15\t\x08\x00\xeeH'
+F4332.82
+sS'GTX 980TI'
 p8
-tp9
-Rp10
-(dp11
+F5362.73
+ssS'2016.10.07 08:40:28'
+p9
+(dp10
 S'GTX 1080'
+p11
+F5222.31
+sS'GTX 980TI'
 p12
-F2401.81
-sS'GTX 980TI'
-p13
-F2861.41
-ssg1
-(S'\x07\xe0\n\x06\x147:\x04\x12\xf8'
-p14
-tp15
-Rp16
-(dp17
-S'GTX 980TI'
-p18
-F5195.23
-sS'GTX 1080'
-p19
-F5628.57
-ssg1
-(S'\x07\xe0\n\x06\x15\t\x07\x00a\xa8'
-p20
-tp21
-Rp22
-(dp23
-S'GTX 980TI'
-p24
-F2737.7
-sS'GTX 1080'
-p25
-F3331.24
-ssg1
-(S'\x07\xe0\n\x06\x148\x04\x08\xa2\xf0'
-p26
-tp27
-Rp28
-(dp29
-S'GTX 1080'
-p30
-F3513.97
-sS'GTX 980TI'
-p31
-F4055.49
-ssg1
-(S'\x07\xe0\n\x06\x15\t\x05\x01\x05\xb8'
-p32
-tp33
-Rp34
-(dp35
-S'GTX 980TI'
-p36
-F5354.5
-sS'GTX 1080'
-p37
-F2681.86
-ssg1
-(S'\x07\xe0\n\x06\x15\t\x03\x0f6\x88'
-p38
-tp39
-Rp40
-(dp41
-S'GTX 1080'
-p42
-F3356.88
-sS'GTX 980TI'
-p43
-F5147.87
-ssg1
-(S'\x07\xe0\n\x06\x15\t\x06\x00\xcb '
-p44
-tp45
-Rp46
-(dp47
-S'GTX 1080'
-p48
-F3401.23
-sS'GTX 980TI'
-p49
-F5671.47
+F2463.52
 ss.

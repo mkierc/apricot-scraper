@@ -11,10 +11,10 @@ from pprint import pprint
 # todo: dodawanie nowego wykresu jako head-file
 
 if use_old_data:
-    with open('old-datafile.raw', 'rb') as input_handle:
+    with open('old-datafile.raw', 'r') as input_handle:
         input_dict = pickle.loads(input_handle.read())
 else:
-    with open('datafile.raw', 'rb') as input_handle:
+    with open('datafile.raw', 'r') as input_handle:
         input_dict = pickle.loads(input_handle.read())
 
 pprint(input_dict)
@@ -24,7 +24,7 @@ for date_key in input_dict.items():
     for lol in date_key[1].items():
         if lol[0] not in output_dict:
             output_dict[lol[0]] = dict()
-        output_dict.get(lol[0]).update({date_key[0]: lol[1]})
+        output_dict.get(lol[0]).update({datetime.datetime.strptime(date_key[0], '%Y.%m.%d %H:%M:%S'): lol[1]})
 
 pprint(output_dict)
 

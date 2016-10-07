@@ -28,7 +28,7 @@ requests.packages.urllib3.disable_warnings()
 
 class Scraper:
     def main(self):
-        current_date = datetime.datetime.now()
+        current_date = datetime.datetime.now().strftime('%Y.%m.%d %H:%M:%S')
         input_dict = self.get_current_datafile()
 
         print 'previous datafile: ' + str(input_dict)
@@ -78,14 +78,14 @@ class Scraper:
     # odczytujemy dane z datafile.raw
     @staticmethod
     def get_current_datafile():
-        with open(name='datafile.raw', mode='rb') as input_handle:
+        with open(name='datafile.raw', mode='r') as input_handle:
             input_dict = pickle.loads(input_handle.read())
         return input_dict
 
     # zapisujemy dane do datafile.raw
     @staticmethod
     def write_datafile(new_dict):
-        with open(name='datafile.raw', mode='wb') as output_handle:
+        with open(name='datafile.raw', mode='w') as output_handle:
             pickle.dump(new_dict, output_handle)
 
 
