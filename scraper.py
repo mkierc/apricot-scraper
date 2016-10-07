@@ -61,7 +61,7 @@ class Scraper:
     def get_price(url):
         if not dont_download_data:
             # timeout to avoid cloudflare from banning the scrapers ip
-            time.sleep(5)
+            time.sleep(random.randint(1, 4))
             proxies = {}
             if with_proxy:
                 proxies = {
@@ -71,7 +71,7 @@ class Scraper:
             page = requests.get(url, proxies=proxies)
             tree = html.fromstring(page.content)
             price = tree.xpath('//span[@itemprop="price"]/text()')
-            return price[0]
+            return float(price[0].replace(',', '.'))
         else:
             return round(random.uniform(2000, 6000), 2)
 
