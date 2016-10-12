@@ -1,4 +1,5 @@
 from config import use_old_data
+from events import event_dict
 import matplotlib.pyplot as plt
 import datetime
 import pickle
@@ -47,7 +48,6 @@ colors = cycle([
 
 # serve data to plotter
 for product_name in sorted_names:
-    print product_name
     raw_data = remapped_dict.get(product_name)
     # sort product data by dates
     sorted_data = sorted(raw_data.items())
@@ -68,6 +68,15 @@ for label in labels:
     pretty_labels.append(label[2:])
 
 ax.legend(handles=handles, labels=pretty_labels, loc='center left', bbox_to_anchor=(1, 0.5))
+
+for event in event_dict:
+    event_name = event
+    event_date = datetime.datetime.strptime(event_dict.get(event), '%Y.%m.%d')
+    # testdate = datetime.datetime.strptime('2016-05-05', '%Y-%m-%d')
+    ax.axvline(x=event_date, color=(0.5, 0.5, 0.5), linestyle='dashed')
+    x_bounds = ax.get_xlim()
+    ax.annotate(s=event_name, xy=(((event_date.toordinal() - x_bounds[0]) / (x_bounds[1] - x_bounds[0])), 1.01),
+                xycoords='axes fraction', verticalalignment='right', horizontalalignment='right bottom', rotation=270)
 
 # draw plot to file
 filename = 'plots/' + datetime.datetime.now().strftime('%Y-%m-%d') + '.png'
