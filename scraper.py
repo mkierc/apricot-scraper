@@ -70,8 +70,8 @@ class Scraper:
                 }
             page = requests.get(url, proxies=proxies)
             tree = html.fromstring(page.content)
-            price = tree.xpath('//span[@itemprop="price"]/text()')
-            return float(price[0].replace(',', '.'))
+            price = tree.xpath('//div[@itemprop="price"]/@content')
+            return float(price[0])
         else:
             return round(random.uniform(2000, 6000), 2)
 
