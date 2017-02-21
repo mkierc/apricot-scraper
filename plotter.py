@@ -1,21 +1,20 @@
 from config import use_old_data
 from events import event_dict
+from itertools import cycle
 import matplotlib.pyplot as plt
 import datetime
-import pickle
-from itertools import cycle
+import json
 
-# todo: sprawdzic czy mozna dodawac pionowe kreski z oznaczeniami wydarzen
 # todo: automatyczne kopiowanie wykresu do public_html
 # todo: dodawanie nowego wykresu jako head-file
 
 # read data from datafile
 if use_old_data:
-    with open('old-datafile.raw', 'r') as input_handle:
-        input_dict = pickle.loads(input_handle.read())
+    with open("old-datafile.json", "r") as input_handle:
+        input_dict = json.load(input_handle)
 else:
-    with open('datafile.raw', 'r') as input_handle:
-        input_dict = pickle.loads(input_handle.read())
+    with open("datafile.json", "r") as input_handle:
+        input_dict = json.load(input_handle)
 
 # remap data from datetime:{product:price} to product:{datetime:price} format
 remapped_dict = dict()
@@ -24,7 +23,7 @@ for date_key in input_dict.items():
         if product_entry[0] not in remapped_dict:
             remapped_dict[product_entry[0]] = dict()
         remapped_dict.get(product_entry[0]).update(
-            {datetime.datetime.strptime(date_key[0], '%Y.%m.%d %H:%M:%S'): product_entry[1]})
+            {datetime.datetime.strptime(date_key[0], "%Y.%m.%d %H:%M:%S"): product_entry[1]})
 
 # configure the plot
 width = 1500
@@ -52,7 +51,7 @@ for product_name in sorted_names:
     # sort product data by dates
     sorted_data = sorted(raw_data.items())
     x, y = zip(*sorted_data)
-    plt.plot(x, y, label=product_name, color=colors.next(), linewidth=2)
+    plt.plot(x, y, label=product_name, color=next(colors), linewidth=2)
 
 # prettify the plot
 ax = plt.subplot(111)
@@ -67,16 +66,17 @@ pretty_labels = []
 for label in labels:
     pretty_labels.append(label[2:])
 
-ax.legend(handles=handles, labels=pretty_labels, loc='center left', bbox_to_anchor=(1, 0.5))
+ax.legend(handles=handles, labels=pretty_labels, loc="center left", bbox_to_anchor=(1, 0.5))
 
 for event in event_dict:
     event_name = event
-    event_date = datetime.datetime.strptime(event_dict.get(event), '%Y.%m.%d')
+    event_date = datetime.datetime.strptime(event_dict.get(event), "%Y.%m.%d")
     x_bounds = ax.get_xlim()
-    ax.axvline(x=event_date, color=(0.5, 0.5, 0.5), linestyle='dashed')
+    ax.axvline(x=event_date, color=(0.5, 0.5, 0.5), linestyle="dashed")
     ax.annotate(s=event_name, xy=(((event_date.toordinal() - x_bounds[0]) / (x_bounds[1] - x_bounds[0])), 1.01),
-                xycoords='axes fraction', verticalalignment='right', horizontalalignment='right bottom', rotation=270)
+                xycoords="axes fraction", verticalalignment="right", horizontalalignment="right bottom", rotation=270)
 
 # draw plot to file
-filename = 'plots/' + datetime.datetime.now().strftime('%Y-%m-%d') + '.png'
-plt.savefig(filename, dpi=ppi, bbox_inches='tight')
+filename = "plots/" + datetime.datetime.now().strftime("%Y-%m-%d") + ".png"
+plt.savefig(filename, dpi=ppi, bbox_inches="tight")
+

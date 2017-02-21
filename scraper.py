@@ -5,7 +5,7 @@ from config import dont_download_data
 from products import product_dict
 import requests
 import datetime
-import pickle
+import json
 import time
 import random
 
@@ -27,28 +27,6 @@ requests.packages.urllib3.disable_warnings()
 # todo: wysylanie powiadomienia w przypadku bledu
 
 class Scraper:
-    def main(self):
-        current_date = datetime.datetime.now().strftime('%Y.%m.%d %H:%M:%S')
-        input_dict = self.get_current_datafile()
-
-        print 'previous datafile: ' + str(input_dict)
-
-        # get new prices
-        current_prices = {}
-        for item in product_dict:
-            key = item
-            value = self.get_price(product_dict.get(item))
-            current_prices.update({key: value})
-
-        print 'new data: ' + str(current_prices)
-
-        # add new prices to the dictionary
-        input_dict.update({current_date: current_prices})
-
-        print 'new datafile: ' + str(input_dict)
-        if not dont_save_data:
-            self.write_datafile(input_dict)
-
     # element to "scrape" the price off of ;)
     #  <span style="color:inherit;font-size:inherit;"
     #   property="gr:hasCurrencyValue"
@@ -75,18 +53,39 @@ class Scraper:
         else:
             return round(random.uniform(2000, 6000), 2)
 
-    # read data from datafile.raw
     @staticmethod
-    def get_current_datafile():
-        with open(name='datafile.raw', mode='r') as input_handle:
-            input_dict = pickle.loads(input_handle.read())
+    def read_datafile():
+        with open("datafile.json", "r") as input_handle:
+            input_dict = json.load(input_handle)
         return input_dict
 
-    # write data to datafile.raw
     @staticmethod
     def write_datafile(new_dict):
-        with open(name='datafile.raw', mode='w') as output_handle:
-            pickle.dump(new_dict, output_handle)
+        with open("datafile.json", "w") as output_handle:
+            json.dump(new_dict, output_handle, indent=4)
+
+    def main(self):
+        current_date = datetime.datetime.now().strftime('%Y.%m.%d %H:%M:%S')
+        input_dict = self.read_datafile()
+
+        print('previous datafile: ' + str(input_dict))
+
+        # get new prices
+        current_prices = {}
+        for item in product_dict:
+            key = item
+            value = self.get_price(product_dict.get(item))
+            current_prices.update({key: value})
+
+        print('new data: ' + str(current_prices))
+
+        # add new prices to the dictionary
+        input_dict.update({current_date: current_prices})
+
+        print('new datafile: ' + str(input_dict))
+        if not dont_save_data:
+            self.write_datafile(input_dict)
 
 
-Scraper().main()
+if __name__ == "__main__":
+    Scraper().main()
