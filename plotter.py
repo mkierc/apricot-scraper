@@ -25,11 +25,12 @@ for date_key in input_dict.items():
         remapped_dict.get(product_entry[0]).update(
             {datetime.datetime.strptime(date_key[0], "%Y.%m.%d %H:%M:%S"): product_entry[1]})
 
+
 # configure the plot
-width = 1500
-height = 600
+subplot1_width = 1200
+subplot1_height = 600
 ppi = 72
-plt.figure(figsize=(width / ppi, height / ppi), dpi=ppi)
+figure, subplot1 = plt.subplots(1, 1, figsize=(subplot1_width / ppi, subplot1_height / ppi), dpi=ppi)
 
 colors = cycle([
     (0.92, 0.30, 0.27),  # red 1
@@ -45,6 +46,7 @@ colors = cycle([
 # sort product data by names, drop the values
 (sorted_names, _) = zip(*sorted(remapped_dict.items()))
 
+
 # serve data to plotter
 for product_name in sorted_names:
     raw_data = remapped_dict.get(product_name)
@@ -53,28 +55,30 @@ for product_name in sorted_names:
     x, y = zip(*sorted_data)
     plt.plot(x, y, label=product_name, color=next(colors), linewidth=2)
 
-# prettify the plot
-ax = plt.subplot(111)
-box = ax.get_position()
-ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 
-handles, labels = ax.get_legend_handles_labels()
+# prettify the plot
 # sort both labels and handles by labels
+handles, labels = subplot1.get_legend_handles_labels()
 labels, handles = zip(*sorted(zip(labels, handles), key=lambda t: t[0]))
 
 pretty_labels = []
 for label in labels:
     pretty_labels.append(label[2:])
 
-ax.legend(handles=handles, labels=pretty_labels, loc="center left", bbox_to_anchor=(1, 0.5))
+subplot1.legend(handles=handles, labels=pretty_labels, loc="center left", bbox_to_anchor=(1, 0.5))
 
 for event in event_dict:
     event_name = event
     event_date = datetime.datetime.strptime(event_dict.get(event), "%Y.%m.%d")
-    x_bounds = ax.get_xlim()
-    ax.axvline(x=event_date, color=(0.5, 0.5, 0.5), linestyle="dashed")
-    ax.annotate(s=event_name, xy=(((event_date.toordinal() - x_bounds[0]) / (x_bounds[1] - x_bounds[0])), 1.01),
-                xycoords="axes fraction", verticalalignment="right", horizontalalignment="right bottom", rotation=270)
+    x_bounds = subplot1.get_xlim()
+    subplot1.axvline(x=event_date, color=(0.5, 0.5, 0.5), linestyle="dashed")
+    subplot1.annotate(s=event_name,
+                      xy=(((event_date.toordinal() - x_bounds[0]) / (x_bounds[1] - x_bounds[0])), 1.01),
+                      xycoords="axes fraction",
+                      verticalalignment="right",
+                      horizontalalignment="right bottom",
+                      rotation=270)
+
 
 # draw plot to file
 filename = "plots/" + datetime.datetime.now().strftime("%Y-%m-%d") + ".png"
