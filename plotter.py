@@ -75,8 +75,8 @@ for event in event_dict:
     subplot1.annotate(s=event_name,
                       xy=(((event_date.toordinal() - x_bounds[0]) / (x_bounds[1] - x_bounds[0])), 1.01),
                       xycoords="axes fraction",
-                      verticalalignment="right",
-                      horizontalalignment="right bottom",
+                      verticalalignment="bottom",
+                      horizontalalignment="left",
                       rotation=270)
 
 
