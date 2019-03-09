@@ -9,8 +9,6 @@ import json
 import time
 import random
 
-requests.packages.urllib3.disable_warnings()
-
 
 # tandetny scraper do cen z morele.net
 #
